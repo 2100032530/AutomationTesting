@@ -5,13 +5,14 @@
     <classes>
       <class name="com.tests.LoginTest">
         <methods>
+          <include name="websiteCheck"/>
           <include name="setupExtentReport"/>
-          <include name="checkPhoneNumber"/>
-          <include name="tearDown"/>
+          <include name="addToCart"/>
+          <include name="addToWishList"/>
+          <include name="placeOrder"/>
           <include name="setup"/>
-          <include name="loginButtonClick"/>
+          <include name="search" invocation-numbers="0"/>
           <include name="flushExtent"/>
-          <include name="checkLogin"/>
         </methods>
       </class> <!-- com.tests.LoginTest -->
     </classes>

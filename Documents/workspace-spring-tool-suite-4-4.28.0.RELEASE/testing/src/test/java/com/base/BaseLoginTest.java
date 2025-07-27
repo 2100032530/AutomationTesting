@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -32,7 +33,8 @@ public class BaseLoginTest {
     }
 	
 	@BeforeMethod
-    public void setup() throws IOException {
+    public void setup(Method method) throws IOException {
+		if (method.getName().equals("websiteCheck")) {
 		String projectPath=System.getProperty("user.dir");
 		Properties prob=new Properties();
 		  File f1=new File(projectPath+"//logindata.properties");
@@ -45,14 +47,15 @@ public class BaseLoginTest {
 		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		  driver.get(url);
 		  driver.manage().window().maximize();
+		}
     }
 	
-	@AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+//	@AfterMethod
+//    public void tearDown() {
+//        if (driver != null) {
+//            driver.quit();
+//        }
+//    }
 	
 	@AfterSuite
     public void flushExtent() {

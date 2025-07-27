@@ -38,7 +38,7 @@ public class flipkartproject {
 		  Assert.assertTrue(false);
 	  }
 	  
-	  driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[3]/div/div[2]/div/form/div[1]/input")).sendKeys("7989601706");
+	  driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[3]/div/div[2]/div/form/div[1]/input")).sendKeys("6302827224");
 	  driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[3]/div/div[2]/div/form/div[3]/button")).click();
 	  
 	  Thread.sleep(25000);
