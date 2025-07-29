@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]">
-  <test thread-count="5" name="Test(failed)">
+<suite parallel="tests" name="Failed suite [Suite]">
+  <test thread-count="5" parallel="tests" name="chrome(failed)">
+    <parameter name="browser" value="chrome"/>
     <classes>
       <class name="com.tests.LoginTest">
         <methods>
+          <include name="checkDelivery"/>
+          <include name="setupExtentReport"/>
+          <include name="websiteCheck"/>
+          <include name="addToCart"/>
+          <include name="addToWishList"/>
+          <include name="placeOrder"/>
+          <include name="setup"/>
+          <include name="flushExtent"/>
+        </methods>
+      </class> <!-- com.tests.LoginTest -->
+    </classes>
+  </test> <!-- chrome(failed) -->
+  <test thread-count="5" parallel="tests" name="firefox(failed)">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.tests.LoginTest">
+        <methods>
+          <include name="checkDelivery"/>
           <include name="websiteCheck"/>
           <include name="setupExtentReport"/>
           <include name="addToCart"/>
           <include name="addToWishList"/>
           <include name="placeOrder"/>
           <include name="setup"/>
-          <include name="search" invocation-numbers="0"/>
           <include name="flushExtent"/>
         </methods>
       </class> <!-- com.tests.LoginTest -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- firefox(failed) -->
 </suite> <!-- Failed suite [Suite] -->

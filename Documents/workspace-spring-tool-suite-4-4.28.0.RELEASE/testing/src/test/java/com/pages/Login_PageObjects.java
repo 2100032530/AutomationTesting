@@ -29,12 +29,13 @@ public class Login_PageObjects {
 	By allen=By.xpath("//div[text()='Allen Solly']");
 	By icon2=By.cssSelector("#container > div > div.nt6sNV.JxFEK3._48O0EI > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(1) > div > a > div:nth-child(1) > div > div.wvIX4U > div > img");
 	By cart=By.xpath("//button[text()='Add to cart']");
+	By gotocart=By.xpath("//button[contains(text(), 'GO TO CART')]");
 	By add=By.xpath("//button[text()='+']");
 	By minus=By.xpath("//button[text()='–']");
 	By order=By.xpath("//button[.//span[text()='Place Order']]");
 	By deliver=By.xpath("//button[text()='Deliver Here']");
 	By checkout=By.xpath("//button[text()='CONTINUE']");
-	
+	By cashOnDelivery=By.xpath("//span[text()='Cash on Delivery']");
 	public Login_PageObjects(WebDriver driver) {
 		this.driver=driver;
 	}
@@ -115,6 +116,9 @@ public class Login_PageObjects {
 	public WebElement  cart() {
 		return driver.findElement(cart);
 	}
+	public WebElement gotocart() {
+		return driver.findElement(gotocart);
+	}
 	public WebElement add() {
 		return driver.findElement(add);
 	}
@@ -129,5 +133,8 @@ public class Login_PageObjects {
 	}
 	public WebElement checkout() {
 		return driver.findElement(checkout);
+	}
+	public void cashOnDelivery() {
+		driver.findElement(cashOnDelivery).click();
 	}
 }

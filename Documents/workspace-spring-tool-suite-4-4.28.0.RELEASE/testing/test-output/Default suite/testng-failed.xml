@@ -3,11 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="pac1.flipkartproject">
+      <class name="com.tests.LoginTest">
         <methods>
-          <include name="f"/>
+          <include name="checkDelivery"/>
+          <include name="setupExtentReport"/>
+          <include name="setup"/>
+          <include name="flushExtent"/>
         </methods>
-      </class> <!-- pac1.flipkartproject -->
+      </class> <!-- com.tests.LoginTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

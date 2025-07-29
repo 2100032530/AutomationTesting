@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="false" name="Suite">
-  <test name="Test">
+<suite parallel="tests" name="Suite" thread-count="5">
+  <test name="chrome">
+  <parameter name="browser" value="chrome"/>
     <classes>
       <class name="com.tests.LoginTest"/>
     </classes>
   </test> <!-- Test -->
+  <test name="firefox" >
+  <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.tests.LoginTest"/>
+    </classes>
+    </test>
 </suite> <!-- Suite -->

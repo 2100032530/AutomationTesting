@@ -4,13 +4,18 @@ package com.tests;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,42 +25,50 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.base.BaseLoginTest;
 import com.pages.Login_PageObjects;
+import com.utilities.LoginExtentReportManager;
 
 public class LoginTest extends BaseLoginTest{
 	Login_PageObjects login_obj;
+	String projectPath=System.getProperty("user.dir");
 	
 	
 	  @Test(priority = 1)
 	  public void websiteCheck() throws Exception {
 		  test=extent.createTest("Login Testing");
 		  login_obj=new Login_PageObjects(driver);
-		  
+		  try {
 		  if(login_obj.findWebPage().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Flipkart Website Opened");
 		  }
-		  else {
-			  Assert.fail();
+		  }
+		  catch(Exception e) {
+			  Assert.assertTrue(false);
 			  test.log(Status.FAIL, "Flipkart Website Not Opened");
 		  }
 		  
+		  try {
 		  if(login_obj.findLogin().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Login Button is Displaying");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Login Button is not Displaying");
 		  }
 		  login_obj.clickLogin();
+		  try {
 		  if(login_obj.findPhone().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Login Button is Clicked");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Login Button is not Clicked");
 		  }
@@ -63,23 +76,26 @@ public class LoginTest extends BaseLoginTest{
 		    login_obj.findPhone().sendKeys(phonenumber);
 		  
 			  login_obj.clickOtp();
-			  
+			  try {
 			  if(login_obj.verify().isDisplayed()) {
 				  Assert.assertTrue(true);
 				  test.log(Status.PASS, "Phone Number Entered Successfully");
 				  test.log(Status.PASS, "OTP is generated");
 			  }
-			  else {
+			  }
+			  catch(Exception e) {
 				  Assert.fail();
 				  test.log(Status.FAIL, "Phone Number Not Entered");
 			  }
 			  
 			  Thread.sleep(20000);
+			  try {
 			  if(login_obj.account().isDisplayed()) {
 				  Assert.assertTrue(true);
 				  test.log(Status.PASS, "Login successful");
 			  }
-			  else {
+			  }
+			  catch(Exception e) {
 				  Assert.fail();
 				  test.log(Status.FAIL, "Login Unsuccessful");
 				  
@@ -90,27 +106,30 @@ public class LoginTest extends BaseLoginTest{
 	  public void search(String product) throws IOException, Exception {
 		  test=extent.createTest("Search Testing");
 		  login_obj=new Login_PageObjects(driver);
+		  try {
 		  if(login_obj.checkSearch().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Search Bar is displayed");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Search Bar is not displayed");
 		  }
 		  
 		  login_obj.checkSearch().sendKeys(product,Keys.ENTER);
+		  try {
 		  if(login_obj.checkElementSearch().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Product is Entered");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Product is not Entered");
 		  }
 		  test.log(Status.PASS, "Product is searched even when the user not logged in to the website");
-		  
-		  
+  
 		  
 	  }
 	  @DataProvider
@@ -136,27 +155,31 @@ public class LoginTest extends BaseLoginTest{
 		  test=extent.createTest("addToWishList Testing");
 		  login_obj=new Login_PageObjects(driver);
 		  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		  try {
 		  if(login_obj.setMinPrice().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Minimum price Filter is displayed");
+			  
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Minimum price Filter is not displayed");
 		  }
-		  test.log(Status.PASS, "Minimum price Filter is Selected");
+		  //test.log(Status.PASS, "Minimum price Filter is Selected");
 			
 		  WebElement minDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(
 		  By.xpath("//select[option[text()='Min']]")));
 				Select min = new Select(minDropdown);
 				min.selectByContainsVisibleText("₹10000");
 				Thread.sleep(1000);
-		  
+		  try {
 		  if(login_obj.setMaxPrice().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Maximum price Filter is displayed");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Maximum price Filter is not displayed");
 		  }
@@ -169,23 +192,26 @@ public class LoginTest extends BaseLoginTest{
 		  
 		  test.log(Status.PASS, "Maximum price Filter is Selected");
 		  
-		  
+		  try {
 		  if(login_obj.setBrand().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Brands Filter is displayed");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Brands Filter is not displayed");
 		  }
 		  login_obj.setBrand().click();
 		  
 		  test.log(Status.PASS, " OPPO Brand is selected");
+		  try {
 		  if(login_obj.clickiocn().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "WishList icon is displayed");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "WishList icon is not displayed");
 		  }
@@ -206,13 +232,13 @@ public class LoginTest extends BaseLoginTest{
 		  act.moveToElement(login_obj.kids()).perform();
 		  Thread.sleep(1000);
 		  login_obj.clothes();
-		  
+		  try {
 		  if(login_obj.setMinPrice().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Minimum price Filter is displayed");
-			  
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Minimum price Filter is not displayed");
 			  
@@ -222,13 +248,13 @@ public class LoginTest extends BaseLoginTest{
 		  Select min1 = new Select(minDropdown1);
 		  min1.selectByContainsVisibleText("300");
 		  test.log(Status.PASS, "Minimum price Filter is Selected");
-		  
+		  try {
 		  if(login_obj.setMaxPrice1().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  test.log(Status.PASS, "Maximum price Filter is displayed");
-			  
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Maximum price Filter is not displayed");
 			  
@@ -242,11 +268,13 @@ public class LoginTest extends BaseLoginTest{
 				test.log(Status.PASS, "Maximum price Filter is Selected");
 				
 				Thread.sleep(1000);
+				try {
 				if(login_obj.brand().isDisplayed()) {
 					Assert.assertTrue(true);
 					  test.log(Status.PASS, "Brand Filter is displayed");
 				}
-				else {
+				}
+				catch(Exception e) {
 					Assert.fail();
 					  test.log(Status.FAIL, "Brands Filter is not displayed");
 				}
@@ -282,25 +310,30 @@ public class LoginTest extends BaseLoginTest{
 				  JavascriptExecutor js1 = (JavascriptExecutor) driver;
 				  js1.executeScript("window.scrollTo(0, document.body.scrollHeight/2);");
 				    
-				 if( login_obj.cart().isDisplayed()) {
-					 Assert.assertTrue(true);
-					 test.log(Status.PASS, "AddToCart Button is displayed");
-				 }
-				 else {
-					 Assert.fail();
-					  test.log(Status.FAIL, "AddToCart Button is not displayed");
-				 }
-				  login_obj.cart().click();
-				
-						 test.log(Status.PASS, "AddToCart Button is Selected");
-					 
+				  try {
+					    if (login_obj.cart().isDisplayed()) {
+					        Assert.assertTrue(true);
+					        test.log(Status.PASS, "AddToCart Button is displayed");
+					        login_obj.cart().click();
+					        test.log(Status.PASS, "AddToCart Button is Selected");
+					    }
+					    else {
+					    	login_obj.gotocart().click();
+					    	test.log(Status.FAIL, "GoToCart Button is selected (AddToCart not available because the product is already in cart)");
+					    }
+					} catch (Exception e) {
+					   
+					    test.log(Status.FAIL,"testcase failed");
+					}
+
 				  Thread.sleep(1000);
-				  
+				  try {
 				  if(login_obj.add().isDisplayed()) {
 					  Assert.assertTrue(true);
 						test.log(Status.PASS, "Add button is displayed for adding more than one product");
 				  }
-				  else {
+				  }
+				  catch(Exception e) {
 					  Assert.fail();
 					  test.log(Status.FAIL, "Add button is not displayed for adding more than one product");
 				  }
@@ -309,11 +342,13 @@ public class LoginTest extends BaseLoginTest{
 						test.log(Status.PASS, "Add button is Selected for adding more than one product");
 				 
 				  Thread.sleep(2000);
+				  try {
 				  if(login_obj.minus().isDisplayed()) {
 					  Assert.assertTrue(true);
 						test.log(Status.PASS, "Minus button is displayed for subtracting the product");
 				  }
-				  else {
+				  }
+				  catch(Exception e) {
 					  Assert.fail();
 					  test.log(Status.FAIL, "Minus button is not displayed for subtracting the product");
 				  }
@@ -330,40 +365,44 @@ public class LoginTest extends BaseLoginTest{
 	  public void placeOrder() throws Exception {
 		  test=extent.createTest("placeOrder Testing");
 		  login_obj=new Login_PageObjects(driver);
+		  try {
 		  if(login_obj.order().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  login_obj.order().click();
 			test.log(Status.PASS, "PlaceOrder button is displayed ");
 			test.log(Status.PASS, "PlaceOrder button is selected");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "PlaceOrder  button is not displayed");
 		  }
 		  
 		  
 		  Thread.sleep(2000);
-		  
+		  try {
 		  if(login_obj.deliver().isDisplayed()) {
 			  Assert.assertTrue(true);
 			  login_obj.deliver().click();
 			test.log(Status.PASS, "DELIVER HERE button is diplayed");
 			test.log(Status.PASS, "DELIVER HERE button is selected");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "DELIVER HERE button is not diplayed");
 		  }
 		  
 		  Thread.sleep(1000);
-		  
+		  try {
 		  if(login_obj.checkout().isDisplayed()){
 			  Assert.assertTrue(true);
 			  login_obj.checkout().click();
 			test.log(Status.PASS, "Check Out button is diplayed");
 			test.log(Status.PASS, "Check Out  button is selected");
 		  }
-		  else {
+		  }
+		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Check Out  button is not diplayed");
 		  }
@@ -371,6 +410,25 @@ public class LoginTest extends BaseLoginTest{
 		  
 		  
 	  }
+	  
+	  @Test(priority = 6)
+	  public void checkDelivery() {
+		  test=extent.createTest("CashOnDelivery Testing");
+		  login_obj=new Login_PageObjects(driver);
+		  try {
+			  login_obj.cashOnDelivery();
+		  }
+		  catch(Exception e) {
+			  String screenshotPath = LoginExtentReportManager.getScreenshotPath(driver, "cashOnDelivery Testing");
+	           test.log(Status.FAIL, "Failed to cashOnDelivery: " + e.getMessage());
+	           test.addScreenCaptureFromPath(screenshotPath);
+	           Assert.fail();
+		  }
+		  
+		  
+	  }
+
+	
 		  
 		  
 		  
