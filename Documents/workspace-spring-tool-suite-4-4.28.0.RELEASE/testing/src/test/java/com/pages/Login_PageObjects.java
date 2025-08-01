@@ -17,11 +17,18 @@ public class Login_PageObjects {
 	By mobile=By.xpath("//a[text()='Mobiles & Accessories']");
 	
 	By minPrice=By.xpath("//select[option[text()='Min']]");
+	By minimum=By.xpath("//select[option[text()='₹10000']]");
+	By maximum=By.xpath("//select[option[text()='₹15000']]");
 	By maxPrice=By.xpath("//select[option[text()='₹30000+']]");
 	By maxPrice1=By.xpath("//select[option[text()='250+']]");
+	By minimum1=By.xpath("//select[option[text()='300']]");
+	By maximum1=By.xpath("//select[option[text()='500']]");
 	By oppo=By.xpath("//div[text()='OPPO']");
 	By icon1=By.cssSelector("#container > div > div.nt6sNV.JxFEK3._48O0EI > div > div:nth-child(2) > div:nth-child(2) > div > div > div > a > div.Otbq5D > div.oUss6M.ssUU08 > div > svg > path");
+	By hover=By.xpath("//*[@id=\"container\"]/div/div[1]/div[1]/div[2]/div[3]/div/div/div/div");
 	By plus=By.xpath("//img[@title='Flipkart']");
+	By wishlist=By.xpath("//a[.//div[text()='Wishlist']]");
+	By wishlistproduct=By.xpath("//div[text()='OPPO K13x 5G 6000mAh and 45W SUPERVOOC Charger & AI (Midnight Violet, 128 GB)']");
 	By fashion=By.xpath("//*[@id=\"container\"]/div/div[1]/div/div/div/div/div/div/div/div/div/div[2]/div[1]/div/div[1]/div/div/div/div/div[1]/div[1]/div/div/span/span[1]");
 	By kids=By.linkText("Kids");
 	By clothes=By.linkText("Boys & Girls Tshirts");
@@ -31,11 +38,12 @@ public class Login_PageObjects {
 	By cart=By.xpath("//button[text()='Add to cart']");
 	By gotocart=By.xpath("//button[contains(text(), 'GO TO CART')]");
 	By add=By.xpath("//button[text()='+']");
+	By addValue=By.xpath("//input[@value='2']");
 	By minus=By.xpath("//button[text()='–']");
 	By order=By.xpath("//button[.//span[text()='Place Order']]");
 	By deliver=By.xpath("//button[text()='Deliver Here']");
 	By checkout=By.xpath("//button[text()='CONTINUE']");
-	By cashOnDelivery=By.xpath("//span[text()='Cash on Delivery']");
+	By cashOnDelivery=By.xpath("//span[text()='Cash on De']");
 	public Login_PageObjects(WebDriver driver) {
 		this.driver=driver;
 	}
@@ -76,6 +84,18 @@ public class Login_PageObjects {
 	
 	public WebElement setMinPrice() {
 		return driver.findElement(minPrice);
+	}
+	public WebElement minimum() {
+		return driver.findElement(minimum);
+	}
+	public WebElement maximum() {
+		return driver.findElement(maximum);
+	}
+	public WebElement minimum1() {
+		return driver.findElement(minimum1);
+	}
+	public WebElement maximum1() {
+		return driver.findElement(maximum1);
 	}
 	
 	public WebElement setMaxPrice() {
@@ -122,6 +142,9 @@ public class Login_PageObjects {
 	public WebElement add() {
 		return driver.findElement(add);
 	}
+	public WebElement addvalue() {
+		return driver.findElement(addValue);
+	}
 	public WebElement minus() {
 		return driver.findElement(minus);
 	}
@@ -136,5 +159,14 @@ public class Login_PageObjects {
 	}
 	public void cashOnDelivery() {
 		driver.findElement(cashOnDelivery).click();
+	}
+	public WebElement mouseHover() {
+		return driver.findElement(hover);
+	}
+	public void clickwishlist() {
+		driver.findElement(wishlist).click();
+	}
+	public WebElement checkWishListProduct() {
+		return driver.findElement(wishlistproduct);
 	}
 }

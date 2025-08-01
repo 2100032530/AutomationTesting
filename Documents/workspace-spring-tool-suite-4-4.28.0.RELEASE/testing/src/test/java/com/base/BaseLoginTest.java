@@ -54,8 +54,9 @@ public class BaseLoginTest {
 		  driver.get(url);
 		  driver.manage().window().maximize();
 		}
+	}
 		
-		}
+		
 	
 		if(browser.equalsIgnoreCase("firefox")) {
 			if (method.getName().equals("websiteCheck")) {
@@ -73,10 +74,9 @@ public class BaseLoginTest {
 			  driver.manage().window().maximize();
 			}
 			}
+	}
+
 		
-		
-    }
-	
 
 	@AfterSuite
     public void flushExtent() {

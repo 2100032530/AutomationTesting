@@ -35,11 +35,11 @@ public class LoginTest extends BaseLoginTest{
 	Login_PageObjects login_obj;
 	String projectPath=System.getProperty("user.dir");
 	
-	
 	  @Test(priority = 1)
 	  public void websiteCheck() throws Exception {
 		  test=extent.createTest("Login Testing");
 		  login_obj=new Login_PageObjects(driver);
+		  //checking whether website opened or not
 		  try {
 		  if(login_obj.findWebPage().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -50,7 +50,7 @@ public class LoginTest extends BaseLoginTest{
 			  Assert.assertTrue(false);
 			  test.log(Status.FAIL, "Flipkart Website Not Opened");
 		  }
-		  
+		  //login pop up checking
 		  try {
 		  if(login_obj.findLogin().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -61,7 +61,9 @@ public class LoginTest extends BaseLoginTest{
 			  Assert.fail();
 			  test.log(Status.FAIL, "Login Button is not Displaying");
 		  }
+		  
 		  login_obj.clickLogin();
+		  
 		  try {
 		  if(login_obj.findPhone().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -166,13 +168,24 @@ public class LoginTest extends BaseLoginTest{
 			  Assert.fail();
 			  test.log(Status.FAIL, "Minimum price Filter is not displayed");
 		  }
-		  //test.log(Status.PASS, "Minimum price Filter is Selected");
+		  
 			
 		  WebElement minDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(
 		  By.xpath("//select[option[text()='Min']]")));
 				Select min = new Select(minDropdown);
 				min.selectByContainsVisibleText("₹10000");
 				Thread.sleep(1000);
+				try {
+					if(login_obj.minimum().isDisplayed()) {
+						 Assert.assertTrue(true);
+						 test.log(Status.PASS, "Minimum price Filter is Selected");
+					}
+				}
+				catch(Exception e) {
+					Assert.fail();
+					  test.log(Status.FAIL, "Minimum price Filter is not Selected");
+				}
+				
 		  try {
 		  if(login_obj.setMaxPrice().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -187,10 +200,18 @@ public class LoginTest extends BaseLoginTest{
 		    By.xpath("//select[option[text()='₹30000+']]"))); 
 		Select max = new Select(maxDropdown);
 		max.selectByContainsVisibleText("₹15000");
-
        Thread.sleep(2000);
-		  
-		  test.log(Status.PASS, "Maximum price Filter is Selected");
+       try {
+			if(login_obj.maximum().isDisplayed()) {
+				 Assert.assertTrue(true);
+				 test.log(Status.PASS, "Maximum price Filter is Selected");
+			}
+		}
+		catch(Exception e) {
+			Assert.fail();
+			  test.log(Status.FAIL, "Maximum price Filter is not Selected");
+		}
+       
 		  
 		  try {
 		  if(login_obj.setBrand().isDisplayed()) {
@@ -203,8 +224,19 @@ public class LoginTest extends BaseLoginTest{
 			  test.log(Status.FAIL, "Brands Filter is not displayed");
 		  }
 		  login_obj.setBrand().click();
+		  Thread.sleep(1000);
+		  try {
+		     if(login_obj.setBrand().getText().equalsIgnoreCase("OPPO")){
+		    	 Assert.assertTrue(true);
+		    	 test.log(Status.PASS, "OPPO Brand is selected");
+		     }
+		    	
+		     }
+		  catch(Exception e) {
+			  Assert.fail();
+			  test.log(Status.FAIL, "OPPO Brand is not selected");
+		  }
 		  
-		  test.log(Status.PASS, " OPPO Brand is selected");
 		  try {
 		  if(login_obj.clickiocn().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -217,8 +249,24 @@ public class LoginTest extends BaseLoginTest{
 		  }
 		  Thread.sleep(1000);
 		  login_obj.clickiocn().click();
-		  test.log(Status.PASS, "Product added to WishList");
+		  Thread.sleep(2000);
+		  Actions account=new Actions(driver);
+		  account.moveToElement(login_obj.mouseHover()).perform();
+		  Thread.sleep(1000);
+		  login_obj.clickwishlist();
+		  try {
+			  if(login_obj.checkWishListProduct().isDisplayed()) {
+				  Assert.assertTrue(true);
+				  test.log(Status.PASS, "Product added to WishList");
+			  }
+		  }
+		  catch(Exception e) {
+			  Assert.fail();
+			  test.log(Status.FAIL, "Product did not add to WishList");
+		  }
+		  Thread.sleep(2000);
 		  login_obj.clickPlus();
+		  Thread.sleep(1000);
 		  
 		}
 	  
@@ -247,7 +295,18 @@ public class LoginTest extends BaseLoginTest{
 		  WebElement minDropdown1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[option[text()='Min']]")));
 		  Select min1 = new Select(minDropdown1);
 		  min1.selectByContainsVisibleText("300");
-		  test.log(Status.PASS, "Minimum price Filter is Selected");
+		  Thread.sleep(1000);
+		  try {
+		  if(login_obj.minimum1().isDisplayed()) {
+			  Assert.assertTrue(true);
+			  test.log(Status.PASS, "Minimum price Filter is selected");
+		  }
+		  }
+		  catch(Exception e) {
+			  Assert.fail();
+			  test.log(Status.FAIL, "Minimum price Filter is not selected");
+		  }
+		  
 		  try {
 		  if(login_obj.setMaxPrice1().isDisplayed()) {
 			  Assert.assertTrue(true);
@@ -268,6 +327,19 @@ public class LoginTest extends BaseLoginTest{
 				test.log(Status.PASS, "Maximum price Filter is Selected");
 				
 				Thread.sleep(1000);
+				
+				try {
+					  if(login_obj.maximum().isDisplayed()) {
+						  Assert.assertTrue(true);
+						  test.log(Status.PASS, "Maximum price Filter is selected");
+					  }
+					  }
+					  catch(Exception e) {
+						  Assert.fail();
+						  test.log(Status.FAIL, "Maximum price Filter is not selected");
+					  }
+				
+				
 				try {
 				if(login_obj.brand().isDisplayed()) {
 					Assert.assertTrue(true);
@@ -278,21 +350,23 @@ public class LoginTest extends BaseLoginTest{
 					Assert.fail();
 					  test.log(Status.FAIL, "Brands Filter is not displayed");
 				}
-				
 				login_obj.brand().click();
-				Thread.sleep(1000);
-			
-					test.log(Status.PASS, "Brand Filter is Selected");
-				
-				
-				login_obj.allen();
-				
-				test.log(Status.PASS, "Allen Solley Brand is Selected");
-				
+				try {
+					if(login_obj.brand().getText().equalsIgnoreCase("Allen Solly")) {
+						Assert.assertTrue(true);
+						  test.log(Status.PASS, "Allen Solly brand is Selected");
+					}
+					}
+					catch(Exception e) {
+						Assert.fail();
+						  test.log(Status.FAIL, "Allen Solly brand is not Selected");
+					}
 				Thread.sleep(2000);
+				
+			
 				login_obj.shirt().click();
 				
-					test.log(Status.PASS, "T-Shirt  is Selected");
+				
 				
 				 String originalWindow = driver.getWindowHandle();
 				  WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -300,6 +374,7 @@ public class LoginTest extends BaseLoginTest{
 				  
 				  for (String windowHandle : driver.getWindowHandles()) {
 					    if (!windowHandle.equals(originalWindow)) {
+					    	test.log(Status.PASS, "T-shirt is selected");
 					    	test.log(Status.PASS, "Page is redirected");
 					        driver.switchTo().window(windowHandle);
 					        break;
@@ -330,16 +405,25 @@ public class LoginTest extends BaseLoginTest{
 				  try {
 				  if(login_obj.add().isDisplayed()) {
 					  Assert.assertTrue(true);
-						test.log(Status.PASS, "Add button is displayed for adding more than one product");
+						test.log(Status.PASS, "Add to cart button is displayed for adding more than one product");
 				  }
 				  }
 				  catch(Exception e) {
 					  Assert.fail();
-					  test.log(Status.FAIL, "Add button is not displayed for adding more than one product");
+					  test.log(Status.FAIL, "Add to cart button is not displayed for adding more than one product");
 				  }
 				  login_obj.add().click();
-				  
-						test.log(Status.PASS, "Add button is Selected for adding more than one product");
+				  try {
+					  if(login_obj.add().isDisplayed()) {
+						  Assert.assertTrue(true);
+							test.log(Status.PASS, "Add to cart button is Selected for adding more than one product");
+					  }
+					  }
+					  catch(Exception e) {
+						  Assert.fail();
+						  test.log(Status.FAIL, "Add to cart button is not selected");
+					  }
+						
 				 
 				  Thread.sleep(2000);
 				  try {
@@ -354,8 +438,6 @@ public class LoginTest extends BaseLoginTest{
 				  }
 				  login_obj.minus().click();
 				  
-						test.log(Status.PASS, "Minus button is selected for subtracting the product");
-				  
 				  Thread.sleep(2000);
 		
 	  }
@@ -368,45 +450,43 @@ public class LoginTest extends BaseLoginTest{
 		  try {
 		  if(login_obj.order().isDisplayed()) {
 			  Assert.assertTrue(true);
-			  login_obj.order().click();
 			test.log(Status.PASS, "PlaceOrder button is displayed ");
-			test.log(Status.PASS, "PlaceOrder button is selected");
+			
 		  }
 		  }
 		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "PlaceOrder  button is not displayed");
 		  }
+		  login_obj.order().click();
 		  
-		  
-		  Thread.sleep(2000);
+		  Thread.sleep(3000);
 		  try {
 		  if(login_obj.deliver().isDisplayed()) {
 			  Assert.assertTrue(true);
-			  login_obj.deliver().click();
 			test.log(Status.PASS, "DELIVER HERE button is diplayed");
-			test.log(Status.PASS, "DELIVER HERE button is selected");
+			
 		  }
 		  }
 		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "DELIVER HERE button is not diplayed");
 		  }
+		  login_obj.deliver().click();
+		  Thread.sleep(2000);
 		  
-		  Thread.sleep(1000);
 		  try {
 		  if(login_obj.checkout().isDisplayed()){
 			  Assert.assertTrue(true);
-			  login_obj.checkout().click();
 			test.log(Status.PASS, "Check Out button is diplayed");
-			test.log(Status.PASS, "Check Out  button is selected");
+			
 		  }
 		  }
 		  catch(Exception e) {
 			  Assert.fail();
 			  test.log(Status.FAIL, "Check Out  button is not diplayed");
 		  }
-		  
+		  login_obj.checkout().click();
 		  
 		  
 	  }

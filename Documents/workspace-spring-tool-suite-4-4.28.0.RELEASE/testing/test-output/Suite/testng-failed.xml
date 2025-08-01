@@ -7,11 +7,8 @@
       <class name="com.tests.LoginTest">
         <methods>
           <include name="checkDelivery"/>
-          <include name="setupExtentReport"/>
           <include name="websiteCheck"/>
-          <include name="addToCart"/>
-          <include name="addToWishList"/>
-          <include name="placeOrder"/>
+          <include name="setupExtentReport"/>
           <include name="setup"/>
           <include name="flushExtent"/>
         </methods>
@@ -24,9 +21,9 @@
       <class name="com.tests.LoginTest">
         <methods>
           <include name="checkDelivery"/>
-          <include name="websiteCheck"/>
           <include name="setupExtentReport"/>
           <include name="addToCart"/>
+          <include name="websiteCheck"/>
           <include name="addToWishList"/>
           <include name="placeOrder"/>
           <include name="setup"/>

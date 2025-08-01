@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="classes" name="Suite">
-  <test name="Test">
-    <classes>
-      <class name="pac1.parallel_testing"/>
-      <class name="pac1.parallel_testing2"/>
-    </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
